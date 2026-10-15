@@ -1,124 +1,127 @@
-\# Análisis de Factores Socioeconómicos y su Impacto en el PIB per
-cápita
+# Análisis de la Relación entre Indicadores Socioeconómicos y el PIB per cápita
 
-\## Descripción del Proyecto
+## Descripción del proyecto
 
-Este proyecto analiza los factores que influyen en el nivel de vida de
-los países, utilizando el PIB per cápita como variable principal.
+Este proyecto analiza la relación entre diferentes indicadores socioeconómicos y el PIB per cápita, utilizando datos del Banco Mundial (World Bank).
 
-Se exploran relaciones entre indicadores socioeconómicos como la
-esperanza de vida, el acceso a internet y el desempleo, con el objetivo
-de identificar cuáles tienen mayor poder explicativo sobre el desarrollo
-económico.
+Se exploran asociaciones entre la esperanza de vida, el uso de internet y el desempleo, con el objetivo de identificar patrones estadísticos relacionados con las diferencias en los niveles de ingreso entre países y períodos.
 
-\-\--
+## Objetivo
 
-\## Objetivo
+Evaluar las asociaciones entre indicadores socioeconómicos y el PIB per cápita mediante:
 
-Identificar y evaluar qué variables socioeconómicas están más asociadas
-al PIB per cápita mediante:
+- Análisis exploratorio de datos (EDA).
+- Pruebas estadísticas de correlación.
+- Regresión lineal múltiple.
 
-\* Análisis exploratorio de datos (EDA) \* Pruebas estadísticas \*
-Modelos de regresión
+## Dataset
 
-\-\--
+Los datos proceden del Banco Mundial e incluyen los siguientes indicadores:
 
-\## Dataset
+- PIB per cápita.
+- Esperanza de vida.
+- Uso de internet (% de la población).
+- Tasa de desempleo.
 
-Los datos fueron obtenidos del World Bank, incluyendo los siguientes
-indicadores:
+El dataset depurado utilizado en el análisis contiene **3.752 observaciones correspondientes a 199 países y territorios**, con registros de diferentes años.
 
-\* PIB per cápita \* Esperanza de vida \* Uso de internet (% población)
-\* Tasa de desempleo
+Durante la preparación se excluyeron agregados regionales y económicos para evitar tratarlos como países individuales.
 
-\-\--
+## Proceso
 
-\## Proceso
+### 1. Limpieza y transformación de datos
 
-\### 1. Limpieza y transformación de datos
+- Conversión de datos de formato ancho a largo mediante `melt`.
+- Revisión y manejo de valores faltantes.
+- Conversión de tipos de datos.
+- Integración de múltiples datasets mediante `merge`.
+- Exclusión de agregados regionales y económicos.
+- Verificación de duplicados por país y año.
 
-\* Conversión de datos de formato wide a long (\`melt\`) \* Manejo de
-valores faltantes \* Conversión de tipos de datos \* Integración de
-múltiples datasets mediante \`merge\`
+### 2. Análisis exploratorio (EDA)
 
-\-\--
+- Análisis de distribuciones, incluyendo la transformación logarítmica del PIB per cápita.
+- Visualización de relaciones entre variables.
+- Exploración de patrones y valores extremos.
+- Análisis de correlaciones entre indicadores socioeconómicos.
 
-\### 2. Análisis Exploratorio (EDA)
+### 3. Análisis estadístico
 
-\* Análisis de distribuciones (incluyendo transformación logarítmica del
-PIB) \* Visualización de relaciones entre variables \* Identificación de
-patrones y outliers
+- Cálculo de correlaciones de Pearson.
+- Evaluación de valores p.
+- Interpretación de la dirección y fuerza de las asociaciones.
 
-\-\--
+### 4. Modelado
 
-\### 3. Análisis estadístico
+Se construyó un modelo de regresión lineal múltiple mediante mínimos cuadrados ordinarios (OLS).
 
-\* Correlación de Pearson entre variables \* Evaluación de significancia
-estadística (p-values)
+**Variable dependiente:** logaritmo del PIB per cápita (`log_gdp`).
 
-\-\--
+**Variables independientes:**
 
-\### 4. Modelado
+- Esperanza de vida.
+- Uso de internet.
+- Desempleo.
 
-Se construyó un modelo de regresión lineal múltiple para explicar el PIB
-per cápita (log-transformado) en función de:
+## Resultados clave
 
-\* Esperanza de vida \* Uso de internet \* Desempleo
+Las correlaciones de Pearson con el logaritmo del PIB per cápita fueron:
 
-\-\--
+- **Esperanza de vida:** correlación positiva fuerte (r ≈ 0,822).
+- **Uso de internet:** correlación positiva (r ≈ 0,661).
+- **Desempleo:** correlación negativa muy débil (r ≈ -0,106).
 
-\## Resultados Clave
+En el modelo de regresión múltiple:
 
-\* La \*\*esperanza de vida\*\* mostró la relación más fuerte con el PIB
-per cápita (r ≈ 0.82) \* El \*\*uso de internet\*\* presentó una
-relación positiva moderada (r ≈ 0.66) \* El \*\*desempleo\*\* mostró una
-relación débil (r ≈ -0.10)
+- La esperanza de vida presentó un coeficiente positivo y estadísticamente significativo.
+- El uso de internet presentó un coeficiente positivo y estadísticamente significativo.
+- El desempleo no presentó un coeficiente estadísticamente significativo (p = 0,829).
+- El modelo obtuvo un **R² de 0,719**, equivalente al 71,9 % de la variabilidad observada en `log_gdp` dentro de la muestra.
 
-En el modelo de regresión:
+Estos resultados describen asociaciones estadísticas y no permiten establecer relaciones causales.
 
-\* Esperanza de vida y uso de internet fueron \*\*estadísticamente
-significativos\*\* \* El desempleo \*\*no resultó significativo\*\* \*
-El modelo explicó aproximadamente el \*\*72% de la variabilidad del
-PIB\*\* (R² ≈ 0.72)
+## Conclusiones
 
-\-\--
+Los resultados muestran una asociación positiva entre la esperanza de vida y el logaritmo del PIB per cápita, así como entre el uso de internet y dicha variable.
 
-\## Conclusiones
+El desempleo presenta una correlación negativa muy débil en el análisis individual y no resulta estadísticamente significativo al considerar simultáneamente las demás variables en el modelo de regresión.
 
-Los resultados sugieren que:
+En conjunto, el análisis evidencia relaciones entre los indicadores socioeconómicos seleccionados y los niveles de ingreso, aunque estas asociaciones deben interpretarse dentro de las limitaciones metodológicas del estudio.
 
-\* Factores estructurales como la salud (esperanza de vida) tienen un
-mayor impacto en el desarrollo económico \* El acceso a tecnología
-(internet) también contribuye, aunque en menor medida \* Variables más
-volátiles como el desempleo tienen menor poder explicativo en este
-contexto
+## Limitaciones
 
-\-\--
+- No se incluyeron otros indicadores potencialmente relevantes, como educación, desigualdad o inversión.
+- El análisis es observacional y no permite establecer causalidad.
+- Puede existir multicolinealidad entre las variables independientes.
+- Los datos incluyen observaciones repetidas de países a lo largo de diferentes años.
+- Las pruebas de correlación y el modelo OLS convencional no consideran explícitamente la dependencia entre observaciones de un mismo país, lo que puede afectar la interpretación de la significación estadística.
+- No se modelaron explícitamente los efectos temporales ni las diferencias estructurales entre países.
+- El ajuste del modelo se evaluó dentro de la muestra, sin demostrar su capacidad de generalización a datos nuevos.
 
-\## Limitaciones
+## Próximos pasos
 
-\* No se incluyeron variables relevantes como educación o inversión \*
-El análisis es correlacional (no implica causalidad) \* Posible
-multicolinealidad entre variables \* Uso de datos agregados a nivel país
-\* No se consideraron dinámicas temporales
+Como posibles extensiones futuras se consideran:
 
-\-\--
+- Incorporar indicadores adicionales, como educación, desigualdad e inversión.
+- Explorar modelos estadísticos que consideren la estructura temporal de los datos.
+- Construir visualizaciones interactivas en Power BI o Tableau.
+- Realizar análisis comparativos por regiones.
 
-\## Próximos pasos
+## Herramientas utilizadas
 
-\* Incluir variables adicionales (educación, desigualdad, inversión) \*
-Aplicar modelos más avanzados \* Construir dashboards interactivos
-(Power BI / Tableau) \* Realizar análisis por regiones
+- Python.
+- Pandas.
+- NumPy.
+- Matplotlib y Seaborn.
+- SciPy.
+- Statsmodels.
+- Jupyter Notebook.
 
-\-\--
+## Autor
 
-\## Herramientas utilizadas
+Alfredo Javier Arnez Valdés
 
-\* Python \* Pandas \* NumPy \* Seaborn / Matplotlib \* Statsmodels
-
-\-\--
-
-\## Autor
+Proyecto desarrollado como parte de la formación y práctica profesional en análisis de datos y estadística aplicada.
 
 Alfredo Javier Arnez Valdés 
 
